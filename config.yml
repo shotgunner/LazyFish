@@ -15,8 +15,8 @@ services:
   web:
     instance: "web-application"
     configs:
-      language: "python"
-      framework: "django"
+      type: "django"
+      version: "latest"
       endpoints:
         - name: "login"
           url: "/login"
