@@ -1,0 +1,25 @@
+project:
+  name: "example"
+  location: "."
+
+services:
+  nginx:
+    instance: "web-server"
+    configs:
+      type: "nginx"
+      version: "latest"
+      reverse-proxy:
+        - name: "web"
+          port: 80
+          url: "/something/"
+  web:
+    instance: "web-application"
+    configs:
+      language: "python"
+      framework: "django"
+      endpoints:
+        - name: "login"
+          url: "/login"
+          action: "login"
+
+
