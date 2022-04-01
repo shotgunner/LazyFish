@@ -1,8 +1,8 @@
-from WebServer.nginx.service import Nginx
-from WebApplication.django.service import Django
+from ServiceBuilder.WebServer.nginx.service import Nginx
+from ServiceBuilder.WebApplication.django.service import Django
 
 
-class ServiceBuilder:
+class ServiceBuilderAPP:
     def __init__(self, service_name):
         self.service_name = service_name
         self.service_dictionary = {

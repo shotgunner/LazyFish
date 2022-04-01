@@ -1,7 +1,7 @@
 import argparse
 
 from ConfigLoader import ConfigLoader
-from ServiceBuilder.main import ServiceBuilder
+from ServiceBuilder.main import ServiceBuilderAPP
 
 
 class LazyFishApplication:
@@ -17,7 +17,7 @@ class LazyFishApplication:
 
     def process_config(self):
         for service in self.config['services']:
-            ServiceBuilder(self.get_type(service)).run()
+            ServiceBuilderAPP(self.get_type(service)).run()
 
     def get_type(self, service):
         return self.config['services'][service]["configs"]["type"]
