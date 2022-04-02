@@ -11,6 +11,7 @@ services:
       location:
         - kooft:flask/kooft
 
+
   flask:
     name: flask
     type: WebApplication/flask

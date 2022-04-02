@@ -1,4 +1,6 @@
 import argparse
+import os
+import sys
 
 from ConfigLoader import ConfigLoader
 from ServiceBuilder.main import ServiceBuilder
@@ -16,11 +18,15 @@ class LazyFishApplication:
         return self.config
 
     def process_config(self):
-        for service in self.config['services']:
-            ServiceBuilder(self.get_type(service)).run()
+        location = sys.path.append(os.path.join(os.path.dirname(__file__), self.config["project"]["name"]))
 
-    def get_type(self, service):
-        return self.config['services'][service]["configs"]["type"]
+        for service_name, service_specs in self.config['services'].items():
+            service = {
+                "name": service_name,
+                "specs": service_specs,
+                "location": location
+            }
+            ServiceBuilder(service).run()
 
 
 LazyFishApplication().process_config()
