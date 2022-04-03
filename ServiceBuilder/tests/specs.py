@@ -1,7 +1,10 @@
+import os
+import sys
+
 from ConfigLoader import ConfigLoader
 
 project_name = "test_project"
-project_location = '.'
+project_location = os.getcwd() + "/" + project_name
 
 
 def get_list_of_services(filename):

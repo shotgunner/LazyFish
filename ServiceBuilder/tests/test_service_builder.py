@@ -5,12 +5,11 @@ from main import ServiceBuilder
 from tests.specs import get_list_of_services, project_location
 
 
-
 class ServiceBuilderTest(unittest.TestCase):
     def test_is_all_service_names_correct(self):
         for service in get_list_of_services("general_config.yml"):
             self.service_builder = ServiceBuilder(service)
-            self.assertEqual(self.service_builder.name, service["name"])
+            self.assertEqual(self.service_builder.service_name, service["name"])
 
     def test_is_all_instances_of_correct_classes(self):
         for service in get_list_of_services("general_config.yml"):
@@ -31,8 +30,10 @@ class NginxServiceBuilderTestCase(unittest.TestCase):
         self.service_builder.run()
         directory = self.service_builder.service["specs"]["name"]
         self.assertTrue(os.path.exists(directory), msg="Folder {} not created".format(directory))
+        self.assertEqual(self.service_builder.service_instance.abs_location, "{}/{}".format(project_location, directory))
+        os.rmdir(directory)
 
-
+        self.assertTrue(os.path.exists(directory + "/nginx.conf"), msg="File nginx.conf not created")
 
 
 if __name__ == '__main__':
