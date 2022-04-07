@@ -30,6 +30,7 @@ class NginxServiceBuilderTestCase(unittest.TestCase):
         self.service_builder.run()
         directory = self.service_builder.service["specs"]["name"]
         self.assertTrue(os.path.exists(directory), msg="Folder {} not created".format(directory))
+        self.assertEqual(self.service_builder.service["location"], project_location)
         self.assertEqual(self.service_builder.service_instance.abs_location, "{}/{}".format(project_location, directory))
         os.rmdir(directory)
 

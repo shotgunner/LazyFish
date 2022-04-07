@@ -28,6 +28,7 @@ class ServiceBuilder:
         return self.service["specs"]["name"]
 
     def make_service_directory(self):
+        os.chdir(self.service["location"])
         if not os.path.exists(self.service_name):
             os.mkdir(self.service_name)
 
