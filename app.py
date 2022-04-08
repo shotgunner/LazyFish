@@ -1,7 +1,8 @@
 import argparse
+import os
 
 from ConfigLoader import ConfigLoader
-from ServiceBuilder.main import ServiceBuilderAPP
+from ServiceBuilder.main import ServiceBuilder
 
 
 class LazyFishApplication:
@@ -12,15 +13,28 @@ class LazyFishApplication:
         self.args = self.parser.parse_args()
         self.config = ConfigLoader(self.args.file.read()).load_file()
 
-    def get_config(self):
-        return self.config
+    @property
+    def project_name(self):
+        return self.config["project"]["name"]
+
+    def make_project_directory(self):
+        if not os.path.exists(self.project_name):
+            os.mkdir(self.project_name)
 
     def process_config(self):
-        for service in self.config['services']:
-            ServiceBuilderAPP(self.get_type(service)).run()
+        for service_name, service_specs in self.config['services'].items():
+            service = {
+                "name": service_name,
+                "specs": service_specs,
+                "location": self.get_abs_location()
+            }
+            ServiceBuilder(service).run()
 
-    def get_type(self, service):
-        return self.config['services'][service]["configs"]["type"]
+    def get_abs_location(self):
+        return os.getcwd() + "/" + self.project_name
 
 
-LazyFishApplication().process_config()
+app = LazyFishApplication()
+app.make_project_directory()
+app.process_config()
+

@@ -3,19 +3,10 @@ project:
 
 services:
   nginx:
-    name: nginx
+    name: my_nginx
     type: WebServer/nginx
     external-port: 8080
     internal-port: 80
     config:
       location:
         - kooft:flask/kooft
-
-  flask:
-    name: flask
-    type: WebApplication/flask
-    internal-port: 8000
-    config:
-      location:
-        - kooft:hello-world
-
