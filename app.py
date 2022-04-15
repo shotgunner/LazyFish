@@ -1,8 +1,8 @@
 import argparse
 import os
 
-from ConfigLoader import ConfigLoader
-from ServiceBuilder.main import ServiceBuilder
+from ConfigLoaders import YAMLConfigLoader
+from ComponentBuilder.main import ComponentBuilder
 
 
 class LazyFishApplication:
@@ -11,7 +11,7 @@ class LazyFishApplication:
         self.parser.add_argument('generate')
         self.parser.add_argument('-f', '--file', type=argparse.FileType('r'), required=True)
         self.args = self.parser.parse_args()
-        self.config = ConfigLoader(self.args.file.read()).load_file()
+        self.config = YAMLConfigLoader(self.args.file).load_file()
 
     @property
     def project_name(self):
@@ -28,7 +28,7 @@ class LazyFishApplication:
                 "specs": service_specs,
                 "location": self.get_abs_location()
             }
-            ServiceBuilder(service).run()
+            ComponentBuilder(service).run()
 
     def get_abs_location(self):
         return os.getcwd() + "/" + self.project_name

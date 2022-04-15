@@ -1,0 +1,13 @@
+version: "{{ docker_compose_version }}"
+
+services:
+  {{ service_name }}:
+    build: "{{ docker_compose_build_dir }}"
+    volumes:
+      {% for volume in volumes %}
+      - "{{ volume }}"
+      {% endfor %}
+    ports:
+      - "{{ external_port }}:{{ internal_port }}"
+    networks:
+      - {{ network_name }}

@@ -8,7 +8,7 @@ services:
     external-port: 8080
     internal-port: 80
     config:
-      location:
+      locations:
         - kooft:flask/kooft
 
   flask:
@@ -16,6 +16,6 @@ services:
     type: WebApplication/flask
     internal-port: 8000
     config:
-      location:
+      locations:
         - kooft:hello-world
 

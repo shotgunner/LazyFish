@@ -1,0 +1,13 @@
+server {
+    listen {{ internal_port }};
+
+    {% for location in locations %}
+    location {{ location.path }} {
+        {% if location.proxy_pass %}
+        set $address {{ location.destination_component }};
+        proxy_pass http://$address/;
+        {% endif %}
+    }
+    {% endfor %}
+
+}

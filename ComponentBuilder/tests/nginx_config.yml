@@ -8,5 +8,5 @@ services:
     external-port: 8080
     internal-port: 80
     config:
-      location:
+      locations:
         - kooft:flask/kooft

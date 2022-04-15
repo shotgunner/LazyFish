@@ -1,0 +1,11 @@
+version: "3.4"
+
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx/config.nginx:/etc/nginx/conf.d/config.conf
+    ports:
+      - "8080:80"
+    networks:
+      - project-net
