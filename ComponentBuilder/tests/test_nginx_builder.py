@@ -3,7 +3,9 @@ import shutil
 import unittest
 import io
 
+from ConfigLoaders import YAMLConfigLoader
 from main import ComponentBuilder
+from nosy import Nosy
 from tests.specs import get_list_of_services
 from ComponentBuilder.Components.WebServer import nginx
 
@@ -19,6 +21,7 @@ class NginxServiceBuilderTestCase(unittest.TestCase):
             os.mkdir(self.project_location)
 
     def test_is_folder_and_files_created_properly_after_run(self):
+        Nosy.load(YAMLConfigLoader("general_config.yml").load_file())
         self.component_builder.run()
         component_directory = self.component_builder.component["specs"]["name"]
         self.assertTrue(os.path.exists(component_directory), msg="Folder {} not created".format(component_directory))

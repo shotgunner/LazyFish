@@ -4,12 +4,14 @@ from Components.abstract import Component
 from jinja2 import Template
 import glob
 
+from nosy import Nosy
+
 
 class Nginx(Component):
     def __init__(self, component):
         super().__init__(component)
         self.file_mapper = {}
-        for jinja_file in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__))) +'/*.jinja'):
+        for jinja_file in glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__))) + '/*.jinja'):
             with open(jinja_file, "r") as f:
                 self.file_mapper[jinja_file.split("/")[-1]] = f.read()
 
@@ -27,16 +29,19 @@ class Nginx(Component):
         for location_item in self.component["specs"]["config"]["locations"]:
             path, remote_uri = location_item.split(":")
             location = {
-                "path": path,
-                "proxy_pass": True
+                "path": "~* ^/{}(.*)".format(path),
+                "proxy_pass": True,
+                "service_name": remote_uri.split("/")[0],
+                "service_path": remote_uri.split("/")[1],
+                "service_port": Nosy.query(component=remote_uri.split("/")[0], query="internal-port"),
             }
+            locations.append(location)
 
-        return self.component["specs"]["config"]
+        return locations
 
     def run(self):
         with open(self.abs_location + "/" + "nginx.conf", "w") as f:
             rendered_content = Template(self.file_mapper["config.nginx.jinja"]).render(**self.template_arguments)
-            print(rendered_content)
             f.write(rendered_content)
 
         with open(self.abs_location + "/" + "Dockerfile", "w") as f:

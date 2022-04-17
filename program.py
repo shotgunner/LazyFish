@@ -3,6 +3,7 @@ import os
 
 from ConfigLoaders import YAMLConfigLoader
 from ComponentBuilder.main import ComponentBuilder
+from nosy import Nosy
 
 
 class LazyFishApplication:
@@ -12,6 +13,7 @@ class LazyFishApplication:
         self.parser.add_argument('-f', '--file', type=argparse.FileType('r'), required=True)
         self.args = self.parser.parse_args()
         self.config = YAMLConfigLoader(self.args.file).load_file()
+        Nosy.load(self.config)
 
     @property
     def project_name(self):

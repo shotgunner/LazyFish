@@ -1,16 +1,15 @@
 server {
     listen 80;
 
-    location /static/ {
-        alias /etc/nginx/statics/;
-    }
-
-    location ~* ^/rate(.*) {
+    location ~* ^/kooft(.*) {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
 
         resolver 127.0.0.11 ipv6=off;
-        set $django_address django-webapp:8000;
-        proxy_pass http://$django_address/rate$1$is_args$args;
+
+        set $address flask:8000;
+        proxy_pass http://$address/kooft$1$is_args$args;
+
     }
+
 }

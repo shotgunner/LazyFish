@@ -13,14 +13,14 @@ class ComponentBuilder:
             "django": Django,
             "nginx": Nginx
         }
-        self.component_instance = self.component_mapper[self.service_type](self.component)
+        self.component_instance = self.component_mapper[self.component_type](self.component)
 
     @property
     def service_abstract_type(self):
         return self.component["specs"]["type"].split('/')[0]
 
     @property
-    def service_type(self):
+    def component_type(self):
         return self.component["specs"]["type"].split('/')[1]
 
     @property
