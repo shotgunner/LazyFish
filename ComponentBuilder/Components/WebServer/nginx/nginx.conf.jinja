@@ -1,11 +1,13 @@
 server {
     listen {{ internal_port }};
+
 {% for location in locations %}
     location {{ location.path }} {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
 
         resolver 127.0.0.11 ipv6=off;
+
 {% if location.proxy_pass %}
         set $address {{ location.service_name }}:{{  location.service_port }};
         proxy_pass http://$address/{{ location.service_path }}$1$is_args$args;

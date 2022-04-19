@@ -20,12 +20,33 @@ class Nginx(Component):
         return {
             "internal_port": self.component["specs"]["internal-port"],
             "external_port": self.component["specs"]["external-port"],
-            "locations": self.generate_locations(),
+            "locations": self.generate_nginx_location_directives(),
+            "nginx_image_with_version": self.get_nginx_image_with_version(),
+            "docker_compose": self.generate_docker_compose_variables(),
         }
 
-    def generate_locations(self):
+    def generate_docker_compose_variables(self):
+        project_name = Nosy.ask_project_name()
+        docker_compose_variables = {
+            "version": self.docker_compose_version,
+            "service_name": self.component["specs"]["name"],
+            "build_dir": "{}/{}".format(project_name, self.component["name"]),
+            "volumes": [
+                "./{}/nginx.conf:/etc/nginx/conf.d/config.conf".format(self.component["name"]),
+            ],
+            "network_name": "{}-net".format(project_name),
+        }
+
+        return docker_compose_variables
+
+    def get_nginx_image_with_version(self):
+        nginx_version = "1.21"
+        if self.component["specs"]["config"].get("nginx-version"):
+            nginx_version = self.component["specs"]["config"]["nginx-version"]
+        return "nginx:{}".format(nginx_version)
+
+    def generate_nginx_location_directives(self):
         locations = []
-        # 'kooft:flask/kooft'
         for location_item in self.component["specs"]["config"]["locations"]:
             path, remote_uri = location_item.split(":")
             location = {
@@ -40,12 +61,21 @@ class Nginx(Component):
         return locations
 
     def run(self):
-        with open(self.abs_location + "/" + "nginx.conf", "w") as f:
-            rendered_content = Template(self.file_mapper["config.nginx.jinja"]).render(**self.template_arguments)
+        self.render("nginx.conf")
+        self.render("Dockerfile")
+        self.render("docker-compose.yml")
+
+        self.go_back_to_project_directory()
+
+    def render(self, file_name):
+        with open(self.abs_location + "/" + file_name, "w") as f:
+            rendered_content = Template(
+                self.file_mapper["{}.jinja".format(file_name)],
+                trim_blocks=True,
+                lstrip_blocks=True,
+            ).render(**self.template_arguments)
             f.write(rendered_content)
 
-        with open(self.abs_location + "/" + "Dockerfile", "w") as f:
-            f.write("Dockerfile is here")
-
-        with open(self.abs_location + "/" + "docker-compose.yml", "w") as f:
-            f.write("docker-compose is here")
+    @staticmethod
+    def go_back_to_project_directory():
+        os.chdir("..")

@@ -12,7 +12,7 @@ class LazyFishApplication:
         self.parser.add_argument('generate')
         self.parser.add_argument('-f', '--file', type=argparse.FileType('r'), required=True)
         self.args = self.parser.parse_args()
-        self.config = YAMLConfigLoader(self.args.file).load_file()
+        self.config = YAMLConfigLoader(self.args.file.name).load_file()
         Nosy.load(self.config)
 
     @property
@@ -24,19 +24,21 @@ class LazyFishApplication:
             os.mkdir(self.project_name)
 
     def process_config(self):
-        for service_name, service_specs in self.config['services'].items():
-            service = {
-                "name": service_name,
-                "specs": service_specs,
+        for component_name, component_specs in self.config["components"].items():
+            component = {
+                "name": component_name,
+                "specs": component_specs,
                 "location": self.get_abs_location()
             }
-            ComponentBuilder(service).run()
+            ComponentBuilder(component).run()
 
     def get_abs_location(self):
         return os.getcwd() + "/" + self.project_name
 
+    def run(self):
+        self.make_project_directory()
+        self.process_config()
 
-app = LazyFishApplication()
-app.make_project_directory()
-app.process_config()
 
+if __name__ == '__main__':
+    LazyFishApplication().run()

@@ -5,3 +5,8 @@ class Component:
     @property
     def abs_location(self):
         return self.component["location"]
+
+    @property
+    def docker_compose_version(self):
+        return "3.4"
+

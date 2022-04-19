@@ -1,7 +1,7 @@
 project:
   name: "example"
 
-services:
+components:
   nginx:
     name: my_nginx
     type: WebServer/nginx

@@ -24,20 +24,20 @@ class ComponentBuilder:
         return self.component["specs"]["type"].split('/')[1]
 
     @property
-    def service_name(self):
+    def component_name(self):
         return self.component["specs"]["name"]
 
     def make_service_directory(self):
         os.chdir(self.component["location"])
-        if not os.path.exists(self.service_name):
-            os.mkdir(self.service_name)
+        if not os.path.exists(self.component_name):
+            os.mkdir(self.component_name)
 
     def cd(self, path):
         self.component["location"] += "/" + path
 
     def run(self):
         self.make_service_directory()
-        self.cd(self.service_name)
+        self.cd(self.component_name)
         return self.component_instance.run()
 
 

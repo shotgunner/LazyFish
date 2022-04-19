@@ -2,7 +2,7 @@ import os
 import unittest
 
 from main import ComponentBuilder
-from tests.specs import get_list_of_services
+from tests.specs import get_list_of_components
 
 
 class ServiceBuilderTest(unittest.TestCase):
@@ -11,19 +11,19 @@ class ServiceBuilderTest(unittest.TestCase):
         self.general_config_location = os.getcwd() + "/" + "general_config.yml"
 
     def test_is_all_service_names_correct(self):
-        for service in get_list_of_services(self.general_config_location)["services"]:
-            self.service_builder = ComponentBuilder(service)
-            self.assertEqual(self.service_builder.service_name, service["name"])
+        for component in get_list_of_components(self.general_config_location)["components"]:
+            self.component_builder = ComponentBuilder(component)
+            self.assertEqual(self.component_builder.component_name, component["specs"]["name"])
 
     def test_is_all_instances_of_correct_classes(self):
-        for service in get_list_of_services(self.general_config_location)["services"]:
-            self.service_builder = ComponentBuilder(service)
-            self.assertIsInstance(self.service_builder.component_instance, self.service_builder.component_mapper[service["name"]])
+        for service in get_list_of_components(self.general_config_location)["components"]:
+            self.component_builder = ComponentBuilder(service)
+            self.assertIsInstance(self.component_builder.component_instance, self.component_builder.component_mapper[service["name"]])
 
     def test_is_location_added_to_the_specs(self):
-        for service in get_list_of_services(self.general_config_location)["services"]:
-            self.service_builder = ComponentBuilder(service)
-            self.assertEqual(self.service_builder.component["location"], os.getcwd() + "/" + "example")
+        for service in get_list_of_components(self.general_config_location)["components"]:
+            self.component_builder = ComponentBuilder(service)
+            self.assertEqual(self.component_builder.component["location"], os.getcwd() + "/" + "example")
 
 
 if __name__ == '__main__':
