@@ -1,10 +1,11 @@
 import os
 
-from Components.abstract import Component
 from jinja2 import Template
 import glob
 
-from nosy import Nosy
+
+from ComponentBuilder.Components.abstract import Component
+from Program.nosy import Nosy
 
 
 class Nginx(Component):

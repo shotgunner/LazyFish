@@ -3,11 +3,12 @@ import shutil
 import unittest
 import io
 
-from ConfigLoaders import YAMLConfigLoader
-from main import ComponentBuilder
-from nosy import Nosy
 from ComponentBuilder.Components.WebServer import nginx
-from tests.specs import get_list_of_components
+from ComponentBuilder.main import ComponentBuilder
+from ComponentBuilder.tests.specs import get_list_of_components
+
+from Program.ConfigLoaders import YAMLConfigLoader
+from Program.nosy import Nosy
 
 
 class NginxServiceBuilderTestCase(unittest.TestCase):

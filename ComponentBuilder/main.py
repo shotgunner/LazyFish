@@ -1,8 +1,8 @@
 import os
 
-from Components.WebApplication.flask.component import Flask
-from Components.WebServer.nginx.component import Nginx
-from Components.WebApplication.django.component import Django
+from ComponentBuilder.Components.WebApplication.django.component import Django
+from ComponentBuilder.Components.WebApplication.flask.component import Flask
+from ComponentBuilder.Components.WebServer.nginx.component import Nginx
 
 
 class ComponentBuilder:

@@ -1,4 +1,4 @@
-from Components.abstract import Component
+from ComponentBuilder.Components.abstract import Component
 
 
 class Django(Component):

@@ -3,7 +3,7 @@ import os
 
 from ConfigLoaders import YAMLConfigLoader
 from ComponentBuilder.main import ComponentBuilder
-from nosy import Nosy
+from Program.nosy import Nosy
 
 
 class LazyFishApplication:

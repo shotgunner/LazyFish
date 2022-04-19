@@ -1,5 +1,6 @@
 import os
-from ConfigLoaders import YAMLConfigLoader
+
+from Program.ConfigLoaders import YAMLConfigLoader
 
 
 def get_list_of_components(filename):

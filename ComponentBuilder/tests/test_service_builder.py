@@ -1,8 +1,9 @@
 import os
 import unittest
 
-from main import ComponentBuilder
-from tests.specs import get_list_of_components
+
+from ComponentBuilder.main import ComponentBuilder
+from ComponentBuilder.tests.specs import get_list_of_components
 
 
 class ServiceBuilderTest(unittest.TestCase):
