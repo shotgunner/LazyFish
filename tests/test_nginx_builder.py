@@ -13,6 +13,3 @@ class NginxServiceBuilder(AbstractServiceBuilder):
     def test_is_folder_and_files_created_properly_after_run(self):
         self.check_folder_and_files_created_properly_after_run()
 
-
-if __name__ == '__main__':
-    unittest.main()

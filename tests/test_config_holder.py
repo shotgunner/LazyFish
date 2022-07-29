@@ -11,7 +11,3 @@ class ConfigHolderTestCase(unittest.TestCase):
         self.assertEqual(len(config_holder.components), 2)
         for key in self.config["components"]["nginx"].keys():
             self.assertEqual(config_holder.components["nginx"][key], self.config["components"]["nginx"][key])
-
-
-if __name__ == '__main__':
-    unittest.main()

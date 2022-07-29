@@ -3,6 +3,10 @@ class Component:
         self.component = component
 
     @property
+    def config(self):
+        return self.component["specs"]["config"]
+
+    @property
     def absolute_location(self):
         return self.component["location"]
 
@@ -31,14 +35,6 @@ class Component:
         return self.component["specs"]["config"]["locations"][0].split(":")[0]
 
     @property
-    def app_type(self):
-        return self.component["specs"]["config"]["locations"][0].split(":")[1]
-
-    @property
-    def service_abstract_type(self):
-        return self.component["specs"]["type"].split('/')[0]
-
-    @property
-    def component_type(self):
-        return self.component["specs"]["type"].split('/')[1]
+    def component_locations(self):
+        return self.component["specs"]["config"]["locations"]
 

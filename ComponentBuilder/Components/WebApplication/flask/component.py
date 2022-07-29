@@ -21,7 +21,7 @@ class Flask(Component):
         return {
             "internal_port": self.internal_port,
             "main_py_route": self.app_route,
-            "python_docker_image_with_version": self.get_python_docker_image_with_version(),
+            "python_docker_image_with_version": "python:3.9",
             "flask_version": "2.1.3",
             "docker_compose": self.generate_docker_compose_variables(),
         }
@@ -36,12 +36,6 @@ class Flask(Component):
         }
 
         return docker_compose_variables
-
-    def get_python_docker_image_with_version(self):
-        python_version = "3.9"
-        if self.component["specs"]["config"].get("python-version"):
-            python_version = self.component["specs"]["config"]["python-version"]
-        return "python:{}".format(python_version)
 
     def run(self):
         self.render("app.py")

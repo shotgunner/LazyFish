@@ -19,10 +19,10 @@ class Nginx(Component):
     @property
     def template_arguments(self):
         return {
-            "internal_port": self.component["specs"]["internal-port"],
-            "external_port": self.component["specs"]["external-port"],
+            "internal_port": self.internal_port,
+            "external_port": self.external_port,
             "locations": self.generate_nginx_location_directives(),
-            "nginx_image_with_version": self.get_nginx_image_with_version(),
+            "nginx_image_with_version": "nginx:1.21",
             "docker_compose": self.generate_docker_compose_variables(),
         }
 
@@ -30,25 +30,19 @@ class Nginx(Component):
         project_name = Nosy.ask_project_name()
         docker_compose_variables = {
             "version": self.docker_compose_version,
-            "service_name": self.component["name"],
+            "service_name": self.name,
             "build_dir": "{}/{}".format(project_name, self.folder_name),
             "volumes": [
-                "./{}/nginx.conf:/etc/nginx/conf.d/config.conf".format(self.component["name"]),
+                "./{}/nginx.conf:/etc/nginx/conf.d/config.conf".format(self.name),
             ],
             "network_name": "{}-net".format(project_name),
         }
 
         return docker_compose_variables
 
-    def get_nginx_image_with_version(self):
-        nginx_version = "1.21"
-        if self.component["specs"]["config"].get("nginx-version"):
-            nginx_version = self.component["specs"]["config"]["nginx-version"]
-        return "nginx:{}".format(nginx_version)
-
     def generate_nginx_location_directives(self):
         locations = []
-        for location_item in self.component["specs"]["config"]["locations"]:
+        for location_item in self.component_locations:
             path, remote_uri = location_item.split(":")
             location = {
                 "path": "~* ^/{}(.*)".format(path),

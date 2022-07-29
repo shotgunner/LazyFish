@@ -25,7 +25,3 @@ class ServiceBuilderTest(unittest.TestCase):
         for service in get_list_of_components(self.general_config_location)["components"]:
             self.component_builder = ComponentBuilder(service)
             self.assertEqual(self.component_builder.component["location"], os.getcwd() + "/" + "example")
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -21,9 +21,3 @@ class ConfigHolder:
     @property
     def components(self) -> dict:
         return self.config["components"]
-
-    @property
-    def component(self, name: str) -> dict:
-        return {
-
-        }

@@ -11,14 +11,15 @@ from tests.specs import get_list_of_components
 
 
 class AbstractServiceBuilder(unittest.TestCase):
-    def setUp(self) -> None:
-        self.config_file_location = ""
-        self.file_names_should_created = []
+    def __init__(self, method_name):
+        super().__init__(method_name)
+        self.file_names_should_created = None
+        self.config_file_location = None
         self.component = None
 
-    def setup_location(self, location):
+    def setup_location(self):
         self.test_folder_location = os.getcwd()
-        self.config_dictionary = get_list_of_components(location)
+        self.config_dictionary = get_list_of_components(self.config_file_location)
         self.component_builder = ComponentBuilder(self.config_dictionary["components"][0])
         self.project_location = self.test_folder_location + "/" + self.config_dictionary["project"]["name"]
         self.component_name = self.config_dictionary["components"][0]["specs"]["folder_name"]
@@ -26,7 +27,7 @@ class AbstractServiceBuilder(unittest.TestCase):
             os.mkdir(self.project_location)
 
     def check_folder_and_files_created_properly_after_run(self):
-        self.setup_location(self.config_file_location)
+        self.setup_location()
         Nosy.load(YAMLConfigLoader(self.config_file_location).load_file())
         self.component_builder.run()
         os.chdir(self.project_location)
