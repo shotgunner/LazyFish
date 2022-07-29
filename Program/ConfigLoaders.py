@@ -27,8 +27,3 @@ class ConfigHolder:
         return {
 
         }
-
-    # self.component["specs"]["name"]
-    # self.component["specs"]["internal-port"]
-    # self.component["specs"]["external-port"]
-    # self.component["location"]

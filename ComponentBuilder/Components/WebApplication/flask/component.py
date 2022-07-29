@@ -19,8 +19,8 @@ class Flask(Component):
     @property
     def template_arguments(self):
         return {
-            "internal_port": self.component["specs"]["internal-port"],
-            "main_py_route": self.component["specs"]["config"]["locations"][0].split(":")[-1],
+            "internal_port": self.internal_port,
+            "main_py_route": self.app_route,
             "python_docker_image_with_version": self.get_python_docker_image_with_version(),
             "flask_version": "2.1.3",
             "docker_compose": self.generate_docker_compose_variables(),
@@ -30,8 +30,8 @@ class Flask(Component):
         project_name = Nosy.ask_project_name()
         docker_compose_variables = {
             "version": self.docker_compose_version,
-            "service_name": self.component["specs"]["name"],
-            "build_dir": "{}/{}".format(project_name, self.component["name"]),
+            "service_name": self.name,
+            "build_dir": "{}/{}".format(project_name, self.folder_name),
             "network_name": "{}-net".format(project_name),
         }
 
@@ -52,7 +52,7 @@ class Flask(Component):
         self.go_back_to_project_directory()
 
     def render(self, file_name):
-        with open(self.abs_location + "/" + file_name, "w") as f:
+        with open(self.absolute_location + "/" + file_name, "w") as f:
             rendered_content = Template(
                 self.file_mapper["{}.jinja".format(file_name)],
                 trim_blocks=True,

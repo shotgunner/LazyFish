@@ -30,8 +30,8 @@ class Nginx(Component):
         project_name = Nosy.ask_project_name()
         docker_compose_variables = {
             "version": self.docker_compose_version,
-            "service_name": self.component["specs"]["name"],
-            "build_dir": "{}/{}".format(project_name, self.component["name"]),
+            "service_name": self.component["name"],
+            "build_dir": "{}/{}".format(project_name, self.folder_name),
             "volumes": [
                 "./{}/nginx.conf:/etc/nginx/conf.d/config.conf".format(self.component["name"]),
             ],
@@ -69,7 +69,7 @@ class Nginx(Component):
         self.go_back_to_project_directory()
 
     def render(self, file_name):
-        with open(self.abs_location + "/" + file_name, "w") as f:
+        with open(self.absolute_location + "/" + file_name, "w") as f:
             rendered_content = Template(
                 self.file_mapper["{}.jinja".format(file_name)],
                 trim_blocks=True,

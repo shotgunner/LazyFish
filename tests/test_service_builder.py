@@ -14,7 +14,7 @@ class ServiceBuilderTest(unittest.TestCase):
     def test_is_all_service_names_correct(self):
         for component in get_list_of_components(self.general_config_location)["components"]:
             self.component_builder = ComponentBuilder(component)
-            self.assertEqual(self.component_builder.component_name, component["specs"]["name"])
+            self.assertEqual(self.component_builder.component["specs"]["name"], component["specs"]["name"])
 
     def test_is_all_instances_of_correct_classes(self):
         for service in get_list_of_components(self.general_config_location)["components"]:

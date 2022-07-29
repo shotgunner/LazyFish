@@ -1,8 +1,8 @@
 version: "3.4"
 
 services:
-  my_nginx:
-    build: "example/nginx"
+  nginx:
+    build: "example/my_nginx"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/config.conf
     ports:

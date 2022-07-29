@@ -3,10 +3,15 @@ project:
 
 components:
   nginx:
-    name: my_nginx
+    folder_name: my_nginx
     type: WebServer/nginx
     external-port: 8080
     internal-port: 80
     config:
       locations:
-        - kooft:flask/kooft
+        - kooft:dummy_component/kooft
+
+  dummy_component:
+    folder_name: dummy
+    type: WebApplication/flask
+    internal-port: 8000
