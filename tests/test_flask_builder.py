@@ -5,16 +5,16 @@ import io
 
 from ComponentBuilder.Components.WebServer import nginx
 from ComponentBuilder.main import ComponentBuilder
-from ComponentBuilder.tests.specs import get_list_of_components
 
 from Program.ConfigLoaders import YAMLConfigLoader
 from Program.nosy import Nosy
+from tests.specs import get_list_of_components
 
 
 class NginxServiceBuilderTestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.test_folder_location = os.getcwd()
-        self.nginx_config_dictionary = get_list_of_components("nginx_config.yml")
+        self.nginx_config_dictionary = get_list_of_components("tests/configs/nginx_config.yml")
         self.component_builder = ComponentBuilder(self.nginx_config_dictionary["components"][0])
         self.project_location = self.test_folder_location + "/" + self.nginx_config_dictionary["project"]["name"]
         self.component_name = self.nginx_config_dictionary["components"][0]["specs"]["name"]
@@ -22,7 +22,7 @@ class NginxServiceBuilderTestCase(unittest.TestCase):
             os.mkdir(self.project_location)
 
     def test_is_folder_and_files_created_properly_after_run(self):
-        Nosy.load(YAMLConfigLoader("general_config.yml").load_file())
+        Nosy.load(YAMLConfigLoader("tests/configs/general_config.yml").load_file())
         self.component_builder.run()
         os.chdir(self.project_location)
         component_directory = self.component_builder.component["specs"]["name"]

@@ -1,0 +1,21 @@
+project:
+  name: "example"
+
+components:
+  nginx:
+    name: my_nginx
+    type: WebServer/nginx
+    external-port: 8888
+    internal-port: 80
+    config:
+      locations:
+        - kooft:flask/kooft
+
+  flask:
+    name: my_flask
+    type: WebApplication/flask
+    internal-port: 8000
+    config:
+      locations:
+        - kooft:hello-world
+

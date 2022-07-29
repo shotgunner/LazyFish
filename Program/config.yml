@@ -5,7 +5,7 @@ components:
   nginx:
     name: my_nginx
     type: WebServer/nginx
-    external-port: 8080
+    external-port: 8888
     internal-port: 80
     config:
       locations:

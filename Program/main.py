@@ -1,7 +1,7 @@
 import argparse
 import os
 
-from ConfigLoaders import YAMLConfigLoader
+from Program.ConfigLoaders import YAMLConfigLoader
 from ComponentBuilder.main import ComponentBuilder
 from Program.nosy import Nosy
 

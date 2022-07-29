@@ -3,13 +3,13 @@ import unittest
 
 
 from ComponentBuilder.main import ComponentBuilder
-from ComponentBuilder.tests.specs import get_list_of_components
+from tests.specs import get_list_of_components
 
 
 class ServiceBuilderTest(unittest.TestCase):
     def setUp(self) -> None:
 
-        self.general_config_location = os.getcwd() + "/" + "general_config.yml"
+        self.general_config_location = os.getcwd() + "/" + "tests/configs/general_config.yml"
 
     def test_is_all_service_names_correct(self):
         for component in get_list_of_components(self.general_config_location)["components"]:

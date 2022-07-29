@@ -1,0 +1,12 @@
+project:
+  name: "example"
+
+components:
+  flask:
+    name: my_flask
+    type: WebApplication/flask
+    internal-port: 8000
+    config:
+      locations:
+        - kooft:hello-world
+
