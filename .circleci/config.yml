@@ -37,7 +37,7 @@ jobs:
           # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
       - run:
           name: Run tests
-          command:  python -m unittest discover -s tests
+          command:  coverage run -m unittest discover -s tests
       - run:
           name: Coverage
           command: coverage xml
