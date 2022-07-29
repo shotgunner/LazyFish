@@ -41,6 +41,12 @@ jobs:
       - run:
           name: Coverage
           command: coverage xml
+      - run:
+          name: Upload to CodeCov.io
+          command: |
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov
 
 
 
