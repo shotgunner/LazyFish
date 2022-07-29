@@ -1,0 +1,9 @@
+version: "3.4"
+
+services:
+  my_flask:
+    build: "example/flask"
+    expose:
+      - "8000"
+    networks:
+      - example-net

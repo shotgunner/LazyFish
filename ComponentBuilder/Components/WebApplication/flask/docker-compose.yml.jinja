@@ -1,0 +1,9 @@
+version: "{{ docker_compose.version }}"
+
+services:
+  {{ docker_compose.service_name }}:
+    build: "{{ docker_compose.build_dir }}"
+    expose:
+      - "{{ internal_port }}"
+    networks:
+      - {{ docker_compose.network_name }}
