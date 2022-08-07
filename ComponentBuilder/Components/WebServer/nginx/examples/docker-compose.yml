@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   nginx:
-    build: "example/my_nginx"
+    build: "my_nginx"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/config.conf
     ports:

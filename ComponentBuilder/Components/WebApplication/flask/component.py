@@ -31,7 +31,7 @@ class Flask(Component):
         docker_compose_variables = {
             "version": self.docker_compose_version,
             "service_name": self.name,
-            "build_dir": "{}/{}".format(project_name, self.folder_name),
+            "build_dir": "{}".format(self.folder_name),
             "network_name": "{}-net".format(project_name),
         }
 

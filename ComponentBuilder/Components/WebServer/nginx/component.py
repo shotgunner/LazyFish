@@ -31,7 +31,7 @@ class Nginx(Component):
         docker_compose_variables = {
             "version": self.docker_compose_version,
             "service_name": self.name,
-            "build_dir": "{}/{}".format(project_name, self.folder_name),
+            "build_dir": "{}".format(self.folder_name),
             "volumes": [
                 "./{}/nginx.conf:/etc/nginx/conf.d/config.conf".format(self.name),
             ],

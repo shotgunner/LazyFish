@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   flask:
-    build: "example/my_flask"
+    build: "my_flask"
     expose:
       - "8000"
     networks:
