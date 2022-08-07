@@ -3,7 +3,7 @@ project:
 
 components:
   nginx:
-    name: my_nginx
+    folder_name: my_nginx
     type: WebServer/nginx
     external-port: 8080
     internal-port: 80
@@ -13,7 +13,7 @@ components:
 
 
   flask:
-    name: my_flask
+    folder_name: my_flask
     type: WebApplication/flask
     internal-port: 8000
     config:

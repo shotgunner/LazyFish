@@ -1,6 +1,7 @@
 import argparse
 import os
 
+from DeployBuilder.deployer import Deploy
 from Program.ConfigLoaders import YAMLConfigLoader
 from ComponentBuilder.main import ComponentBuilder
 from Program.nosy import Nosy
@@ -13,6 +14,7 @@ class LazyFishApplication:
         self.parser.add_argument('-f', '--file', type=argparse.FileType('r'), required=True)
         self.args = self.parser.parse_args()
         self.config = YAMLConfigLoader(self.args.file.name).load_file()
+        self.components = []
         Nosy.load(self.config)
 
     @property
@@ -30,7 +32,10 @@ class LazyFishApplication:
                 "specs": component_specs,
                 "location": self.get_abs_location()
             }
-            ComponentBuilder(component).run()
+            component_object = ComponentBuilder(component)
+            component_object.run()
+            self.components.append(component_object)
+        Deploy(self.components).run()
 
     def get_abs_location(self):
         return os.getcwd() + "/" + self.project_name

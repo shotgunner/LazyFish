@@ -1,0 +1,5 @@
+docker-compose \
+-f global-docker-compose.yml \
+-f ./my_nginx/docker-compose.yml \
+-f ./my_flask/docker-compose.yml \
+"$@" \

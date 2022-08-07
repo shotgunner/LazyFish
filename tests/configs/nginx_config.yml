@@ -9,9 +9,14 @@ components:
     internal-port: 80
     config:
       locations:
-        - kooft:dummy_component/kooft
+        - kooft:flask/kooft
 
-  dummy_component:
-    folder_name: dummy
+
+  flask:
+    folder_name: my_flask
     type: WebApplication/flask
     internal-port: 8000
+    config:
+      locations:
+        - kooft:hello-world
+

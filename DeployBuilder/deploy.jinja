@@ -1,0 +1,6 @@
+docker-compose \
+-f global-docker-compose.yml \
+{% for file in files %}
+-f {{ file }} \
+{% endfor %}
+"$@" \

@@ -11,6 +11,10 @@ class Component:
         return self.component["location"]
 
     @property
+    def absolute_project_location(self):
+        return '/'.join(self.absolute_location.split("/")[:-1])
+
+    @property
     def docker_compose_version(self):
         return "3.4"
 
