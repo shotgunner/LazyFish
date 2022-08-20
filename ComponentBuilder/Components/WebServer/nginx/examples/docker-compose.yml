@@ -4,7 +4,7 @@ services:
   nginx:
     build: "my_nginx"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/config.conf
+      - ./my_nginx/nginx.conf:/etc/nginx/conf.d/config.conf
     ports:
       - "8080:80"
     networks:

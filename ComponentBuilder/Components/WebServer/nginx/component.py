@@ -33,7 +33,7 @@ class Nginx(Component):
             "service_name": self.name,
             "build_dir": "{}".format(self.folder_name),
             "volumes": [
-                "./{}/nginx.conf:/etc/nginx/conf.d/config.conf".format(self.name),
+                "./{}/nginx.conf:/etc/nginx/conf.d/config.conf".format(self.folder_name),
             ],
             "network_name": "{}-net".format(project_name),
         }
